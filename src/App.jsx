@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "./components/Card";
+import { groupHoldingsByAssetClass } from "./helpers/helper";
 
 const App = () => {
   const [holdings, setHoldings] = useState(null);
@@ -23,35 +24,23 @@ const App = () => {
     fetchHoldings();
   }, []);
 
-  const groupHoldingsByAssetClass = (holdingsData) => {
-    if (!holdingsData || !Array.isArray(holdingsData)) return {};
-
-    const groupedHoldings = holdingsData.reduce((acc, holding) => {
-      const { asset_class } = holding;
-      if (!acc[asset_class]) {
-        acc[asset_class] = [];
-      }
-      acc[asset_class].push(holding);
-      return acc;
-    }, {});
-
-    return groupedHoldings;
-  };
-
   const groupedHoldings = groupHoldingsByAssetClass(holdings);
-  console.log(groupedHoldings);
+  // console.log(groupedHoldings);
 
   return (
-    <div className="px-10">
-      <h1>App</h1>
+    <div className="p-8 bg-primary min-h-screen">
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <>
+        <div className=" bg-white rounded-md">
           {Object.keys(groupedHoldings).map((assetClass) => (
-            <Card key={assetClass} asset={assetClass} data={groupedHoldings[assetClass]} />
+            <Card
+              key={assetClass}
+              asset={assetClass}
+              data={groupedHoldings[assetClass]}
+            />
           ))}
-        </>
+        </div>
       )}
     </div>
   );

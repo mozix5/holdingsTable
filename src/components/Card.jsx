@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Paper,
   Table,
@@ -11,15 +11,15 @@ import {
 import { AiFillLeftCircle, AiFillDownCircle } from "react-icons/ai";
 
 const Card = ({ asset, data }) => {
-  const [isOpen, setIsOpen] = useState(true); 
+  const [isOpen, setIsOpen] = React.useState(true);
 
   function BasicTable() {
     return (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
-              <TableCell>Name of the holding</TableCell>
+            <TableRow className="uppercase">
+              <TableCell >Name of the holding</TableCell>
               <TableCell align="right">Ticker</TableCell>
               <TableCell align="right">Average Price</TableCell>
               <TableCell align="right">Market Price</TableCell>
@@ -28,8 +28,8 @@ const Card = ({ asset, data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.map((row) => (
-              <TableRow key={row.name}>
+            {data?.map((row, index) => (
+              <TableRow key={index} className={index % 2 === 0 ? "bg-primary" : "bg-white"}>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
@@ -47,23 +47,26 @@ const Card = ({ asset, data }) => {
   }
 
   const toggleAccordion = () => {
-    setIsOpen(!isOpen); 
+    setIsOpen((prevOpen) => !prevOpen);
   };
 
   return (
-    <div>
-      <div className="flex items-center cursor-pointer" onClick={toggleAccordion}>
+    <div className="border-t-2 py-6 px-6 first:rounded-t-md">
+      <div className="flex items-center cursor-pointer px-6" onClick={toggleAccordion}>
         {isOpen ? (
-          <AiFillDownCircle className="text-2xl rotate-180" />
+          <AiFillDownCircle className="text-2xl rotate-180 text-blue-600" />
         ) : (
-          <AiFillLeftCircle className="text-2xl -rotate-90" />
+          <AiFillLeftCircle className="text-2xl -rotate-90 text-blue-600" />
         )}
-        <div className="ml-2">{asset}</div>
+        <div className="ml-2 uppercase text-sm text-slate-600 font-bold">{asset}</div>
       </div>
-      {isOpen && ( 
-        <div className="border-2 border-black rounded-2xl mt-4">
-          <BasicTable />
-        </div>
+      {isOpen && (
+        <div
+        className={`mt-4`}
+        // style={{ maxHeight: `${contentHeight}`, transition: "max-height 0.3s ease-in-out" }}
+      >
+        <BasicTable data={data} />
+      </div>
       )}
     </div>
   );
