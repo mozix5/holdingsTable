@@ -20,11 +20,11 @@ const Card = ({ asset, data }) => {
           <TableHead>
             <TableRow className="uppercase">
               <TableCell >Name of the holding</TableCell>
-              <TableCell align="right">Ticker</TableCell>
-              <TableCell align="right">Average Price</TableCell>
-              <TableCell align="right">Market Price</TableCell>
-              <TableCell align="right">Latest Change Percentage</TableCell>
-              <TableCell align="right">Market Value in Base CCY</TableCell>
+              <TableCell align="left">Ticker</TableCell>
+              <TableCell align="left">Average Price</TableCell>
+              <TableCell align="left">Market Price</TableCell>
+              <TableCell align="left">Latest Change Percentage</TableCell>
+              <TableCell align="left">Market Value in Base CCY</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -33,11 +33,11 @@ const Card = ({ asset, data }) => {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.ticker}</TableCell>
-                <TableCell align="right">{row.avg_price}</TableCell>
-                <TableCell align="right">{row.market_price}</TableCell>
-                <TableCell align="right">{row.latest_chg_pct}</TableCell>
-                <TableCell align="right">{row.market_value_ccy}</TableCell>
+                <TableCell align="left">{row.ticker}</TableCell>
+                <TableCell align="left">{row.avg_price}</TableCell>
+                <TableCell align="left">{row.market_price}</TableCell>
+                <TableCell align="left">{row.latest_chg_pct}</TableCell>
+                <TableCell align="left">{row.market_value_ccy}</TableCell>
               </TableRow>
             ))}
           </TableBody>
